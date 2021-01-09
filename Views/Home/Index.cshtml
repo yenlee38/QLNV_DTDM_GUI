@@ -1,0 +1,383 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<button type="button" id="click" > Here</button>*@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+   
+</head>
+
+<body>
+    <div id="container">
+        <div class="row">
+            <div class="sidenav col-md-2">
+                <a href="#about"> <span><i class="fas fa-home"></i></span> Home</a>
+                <a href="#" onclick="listPostionTab()">Position</a>
+                <button class="dropdown-btn">
+                    Manage
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="#" onclick="addEmployeeTab()">Add Employees</a>
+                    <a href="#" onclick="listEmployeeTab()">List Employees</a>
+                </div>
+                <form action="#">
+                    <input id="input-search-home" type="text" placeholder="Search" />
+                    <button class="search-btn" type="submit"><span><i style="color:aliceblue;" class="fas fa-search"></i></span> </button>
+                </form>
+            </div>
+            <div class="content col-md-10">
+                <div id="listEmployeeTab">
+                    <h4 class="title">LIST ALL EMPLOYEES</h4>
+                    <table class="infor-emp">
+                        <thead>
+                            <tr>
+                                <th>SL No.</th>
+                                <th>Image</th>
+                                <th>Full name</th>
+                                <th>Phone</th>
+                                <th>Birthday</th>
+                                <th>Gender</th>
+                                <th>Department</th>
+                                <th>Del/Edit</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="listEmployee"></tbody>
+                    </table>
+                </div>
+
+                <div id="addEmployeeTab">
+                    <div>
+                        <div class="content info-customer" id="info-account">
+                            <h3 class="title-infor">Thông tin cá nhân</h3>
+                            <form>
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-8">
+                                        <label>Tên<span style="color: red; font-size: 15px;">*</span></label>
+                                        <input type="text" class="form-control" id="inputname" placeholder="Họ và Tên">
+                                        <span class="error-input" id="error-input-name"></span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Bộ phận<span style="color: red; font-size: 15px;">*</span></label>
+                                        <div>
+                                            <select name="department" id="department">
+                                                <option value="volvo">Volvo</option>
+                                                <option value="saab">Saab</option>
+                                                <option value="mercedes">Mercedes</option>
+                                                <option value="audi">Audi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="exemple@exemple.com">
+                                        <span class="error-input" id="error-input-email"></span>
+                                    </div>
+                                    <div class="form-group col-md-6  ">
+                                        <label>Số điện thoại</label>
+                                        <input type="number" class="form-control" id="inputPhone" placeholder="xxx-xxx-xxx">
+                                        <span class="error-input" id="error-input-phone"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Địa chỉ</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="12 Lê Văn Viêt , Q9, tp HCM">
+                                    <span class="error-input" id="error-input-address"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSalary">Salary</label>
+                                    <input type="text" class="form-control" id="inputSalary" placeholder="12000$">
+                                    <span class="error-input" id="error-input-salary"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="dropdown col-md-4 ">
+                                        <label for="inputAddress">Vị trí</label>
+                                        <div>
+                                            <select name="typeEmployess" id="position">
+                                                <option value="volvo">Volvo</option>
+                                                <option value="saab">Saab</option>
+                                                <option value="mercedes">Mercedes</option>
+                                                <option value="audi">Audi</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-8" id="identitycard">
+                                        <label for="inputIdentity">CMND (CCCD)</label>
+                                        <input type="text" class="form-control" id="inputidentify" placeholder="122221251515">
+                                        <span class="error-input" id="error-input-identitycard"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label id="birthday">Ngày sinh <span style="color: red; font-size: 15px;">*</span> </label>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <input type="date" data-date-format="" class="form-control" max="2020-1-1" id="inputBirthdate" placeholder="MM/DD/YY">
+                                                <span class="error-input" id="error-input-birthday"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="radioMale" value="Male" checked>
+                                            <label class="form-check-label" for="lbmale">
+                                                Nam
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="radioFemale" value="Female">
+                                            <label class="form-check-label" for="lbfemale">
+                                                Nữ
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="container-addproduct">
+                                    <div class="block-addproduct row">
+                                        <input type="file" class="form-control" id="fileInput" />
+                                        <br />
+                                        <div class="container-img-addproduct js-file-list"></div>
+                                    </div>
+                                </div>
+
+                                <button type="button" id="btn-saveEmployee" class="btn btn-secondary btn-signin mt-5">SAVE</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="position-main" id="listPostionTab">
+                    <div class="position">
+                        <h4 class="title-position">POSITION</h4>
+                        <div class="position-body row">
+
+                            <div class="col-md-5">
+                                <h4 class="title">LIST</h4>
+
+                                <div>
+                                    <table class="infor-position">
+                                        <thead>
+                                            <tr>
+                                                <th>SL No.</th>
+                                                <th>Position</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listPosition"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ">
+                                <form>
+                                    <h4 class="title">EDIT</h4>
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-8">
+                                            <label>ID<span style="color: red; font-size: 15px;">*</span></label>
+                                            <input type="text" class="form-control" id="inputname" placeholder="ID position">
+                                            <span class="error-input" id="error-input-name"></span>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Position<span style="color: red; font-size: 15px;">*</span></label>
+                                            <div>
+                                                <select name="department" id="department">
+                                                    <option value="volvo">Volvo</option>
+                                                    <option value="saab">Saab</option>
+                                                    <option value="mercedes">Mercedes</option>
+                                                    <option value="audi">Audi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group-edit">
+                                        <button type="submit" id="btn-savePosition" class="btn btn-secondary btn-signin mt-5">SAVE</button>
+                                        <button type="submit" id="btn-deletePosition" class="btn btn-secondary btn-signin mt-5">DELETE</button>
+                                        <button type="submit" id="btn-editPosition" class="btn btn-secondary btn-signin mt-5">EDIT</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="department">
+                        <h4 class="title-position">DEPARTMENT</h4>
+                        <div class="position-body row">
+
+                            <div class="col-md-5">
+                                <h4 class="title">LIST</h4>
+
+                                <div>
+                                    <table class="infor-position">
+                                        <thead>
+                                            <tr>
+                                                <th>SL No.</th>
+                                                <th>Department</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listDepartment"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ">
+                                <form>
+                                    <h4 class="title">EDIT</h4>
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-8">
+                                            <label>ID<span style="color: red; font-size: 15px;">*</span></label>
+                                            <input type="text" class="form-control" id="inputname" placeholder="ID department">
+                                            <span class="error-input" id="error-input-name"></span>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Department<span style="color: red; font-size: 15px;">*</span></label>
+                                            <div>
+                                                <select name="department" id="department">
+                                                    <option value="volvo">Volvo</option>
+                                                    <option value="saab">Saab</option>
+                                                    <option value="mercedes">Mercedes</option>
+                                                    <option value="audi">Audi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group-edit">
+                                        <button type="submit" id="btn-saveDepartment" class="btn btn-secondary btn-signin mt-5">SAVE</button>
+                                        <button type="submit" id="btn-deleteDepartment" class="btn btn-secondary btn-signin mt-5">DELETE</button>
+                                        <button type="submit" id="btn-editDepartment" class="btn btn-secondary btn-signin mt-5">EDIT</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+
+    </script>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+
+    </script>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#fileInput').on('change', function () {
+                var files = $(this)[0].files;
+                uploadFile(files, 0);
+            });
+
+            function uploadFile(files, index) {
+                var length = files.length
+                if (index == length) {
+                    return;
+                }
+                var file = files[index];
+                var fileReader = new FileReader();
+                fileReader.onload = function () {
+                    var str = `<div> <img class="img-addproduct js-file-image"  id="img-employee" style=""><div>`;
+                    $('.js-file-list').first().empty();
+                    $('.js-file-list').append(str);
+
+                    var imageSrc = event.target.result;
+                    var fileName = file.name;
+
+                    $('.js-file-name').last().text(fileName);
+                    $('.js-file-image').last().attr('src', imageSrc);
+
+                    uploadFile(files, index + 1);
+                };
+                fileReader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+<environment>
+    <script src="~/js/try.js"></script>
+</environment>
+
+<environment>
+    <script src="~/js/site.js"></script>
+</environment>
+
+
+
